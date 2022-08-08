@@ -8,7 +8,7 @@ PKG_ROOT="$PWD/cni-plugins_${APP_VERSION}-1_${ID}_${VERSION_ID}"
 
 mkdir -p "${PKG_ROOT}/usr/local/libexec/cni"
 
-git clone --branch="v${CNI_PLUGINS_VERSION}" https://github.com/containernetworking/plugins.git
+git clone --branch="v${APP_VERSION}" https://github.com/containernetworking/plugins.git
 cd plugins
 
 ./build_linux.sh

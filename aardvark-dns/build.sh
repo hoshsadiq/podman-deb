@@ -7,7 +7,7 @@ set -eux
 PKG_ROOT="$PWD/aardvark-dns_${APP_VERSION}-1_${ID}_${VERSION_ID}"
 mkdir -p "$PKG_ROOT/usr/local/libexec/podman"
 
-git clone --branch="v${AARDVARK_VERSION}" https://github.com/containers/aardvark-dns
+git clone --branch="v${APP_VERSION}" https://github.com/containers/aardvark-dns
 cd aardvark-dns
 
 make DESTDIR="$PKG_ROOT"

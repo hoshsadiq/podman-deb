@@ -1,0 +1,40 @@
+Package: podman
+Source: libpod
+Version: $APP_VERSION-1
+Architecture: amd64
+Maintainer: Hosh Sadiq
+Depends: libc6,
+  libdevmapper,
+  libgpgme,
+  crun | run (>= 1.0.0~rc92~),
+  conmon,
+  container-network-stack,
+  libapparmor-dev
+Recommends: buildah (>= 1.21.0),
+    fuse-overlayfs (>= 1.0.0~),
+    netavark | slirp4netns (>= 0.4.1~),
+    catatonit | tini | dumb-init,
+    uidmap
+Suggests: containers-storage, docker-compose, iptables
+Breaks: buildah (<< 1.10.1-6), fuse-overlayfs (<< 0.7.1), slirp4netns (<< 0.4.1)
+Section: admin
+Priority: optional
+Homepage: https://github.com/containers/podman
+Description: engine to run OCI-based containers in Pods
+ Podman is an engine for running OCI-based containers in Pods.
+ Podman provides a CLI interface for managing Pods, Containers, and
+ Container Images.
+ .
+ At a high level, the scope of libpod and podman is the following:
+  * Support multiple image formats including the OCI and Docker image
+    formats.
+  * Support for multiple means to download images including trust & image
+    verification.
+  * Container image management (managing image layers, overlay filesystems,
+    etc).
+  * Full management of container lifecycle.
+  * Support for pods to manage groups of containers together.
+  * Resource isolation of containers and pods.
+  * Support for a Docker-compatible CLI interface through Podman.
+ .
+ Podman is a daemon-less alternative to Docker.

@@ -1,0 +1,19 @@
+name: Build Conmon
+
+on:
+  repository_dispatch:
+    types: [build-conmon]
+
+  push:
+    paths:
+      - 'conmon/**'
+
+jobs:
+  conmon:
+    uses: ./.github/workflows/build.yml
+    with:
+      github_event_name: ${{ github.event_name }}
+      app_name: conmon
+      app_version: ${{ github.event.client_payload.version }}
+    secrets:
+      token: "${{ secrets.GITHUB_TOKEN }}"

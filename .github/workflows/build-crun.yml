@@ -1,0 +1,19 @@
+name: Build crun
+
+on:
+  repository_dispatch:
+    types: [build-crun]
+
+  push:
+    paths:
+      - 'crun/**'
+
+jobs:
+  crun:
+    uses: ./.github/workflows/build.yml
+    with:
+      github_event_name: ${{ github.event_name }}
+      app_name: crun
+      app_version: ${{ github.event.client_payload.version }}
+    secrets:
+      token: "${{ secrets.GITHUB_TOKEN }}"

@@ -1,0 +1,87 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      github_event_name:
+        required: true
+        type: string
+      app_name:
+        required: true
+        type: string
+      app_version:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
+
+jobs:
+  get_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: "${{ steps.info.outputs.version }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - id: info
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        run: |
+          if [[ "${{ inputs.github_event_name }}" == 'repository_dispatch' ]]; then
+            echo "::set-output name=version::${{ inputs.app_version }}" 
+          else
+            # todo build other apps for a push
+            echo "::set-output name=version::$(./scripts/is_updated.sh "${{ inputs.app_name }}" "${{ github.repository }}" true)" 
+          fi
+      - run: |
+          if [[ -z "${{ steps.info.outputs.version }}" ]]; then
+            exit 1
+          fi
+  build:
+    runs-on: ubuntu-latest
+    needs:
+      - get_version
+    strategy:
+      matrix:
+        os:
+          - "ubuntu_22.04"
+          - "debian_10"
+          - "debian_11"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - run: docker build -t ${{ inputs.app_name }}-builder:${{ matrix.os }} -f ./${{ inputs.app_name }}/Dockerfile.${{ matrix.os }} .
+      - run: docker run --env=APP_VERSION=${{ needs.get_version.outputs.version }} --env=APP_NAME=${{ inputs.app_name }} -v "$PWD:/repo" -i ${{ inputs.app_name }}-builder:${{ matrix.os }} bash < ${{ inputs.app_name }}/build.sh
+      - uses: actions/upload-artifact@master
+        with:
+          name: build-files
+          path: packages/*.deb
+  release:
+    runs-on: ubuntu-latest
+    needs:
+      - get_version
+      - build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/download-artifact@master
+        with:
+          name: build-files
+          path: packages/
+
+      - run: ls -la packages/
+      - id: info
+        run: |
+          source ./${{ inputs.app_name }}/.env
+          echo "::set-output name=repo::${repo}"
+      - uses: ncipollo/release-action@v1
+        if: ${{ inputs.github_event_name == 'repository_dispatch' }}
+        with:
+          allowUpdates: true
+          artifacts: "packages/*.deb"
+          artifactContentType: application/vnd.debian.binary-package
+          tag: "${{ inputs.app_name }}-${{ needs.get_version.outputs.version }}"
+          body: |
+            [Changelog](https://github.com/${{ steps.info.outputs.repo }}/releases/tag/${{ needs.get_version.outputs.version }})
+          token: ${{ secrets.token }}

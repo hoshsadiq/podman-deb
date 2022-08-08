@@ -1,0 +1,19 @@
+name: Build Podman
+
+on:
+  repository_dispatch:
+    types: [build-podman]
+
+  push:
+    paths:
+      - 'podman/**'
+
+jobs:
+  podman:
+    uses: ./.github/workflows/build.yml
+    with:
+      github_event_name: ${{ github.event_name }}
+      app_name: podman
+      app_version: ${{ github.event.client_payload.version }}
+    secrets:
+      token: "${{ secrets.GITHUB_TOKEN }}"

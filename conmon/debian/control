@@ -1,0 +1,11 @@
+Package: conmon
+Version: $APP_VERSION-1
+Section: devel
+Priority: optional
+Architecture: amd64
+Depends: libglib2.0-0
+Requires: container-network-stack
+Recommends: netavark
+Maintainer: Hosh Sadiq
+Description: OCI container runtime monitor
+Homepage: https://github.com/containers/conmon.git

@@ -1,0 +1,19 @@
+name: Build Netavark
+
+on:
+  repository_dispatch:
+    types: [build-netavark]
+
+  push:
+    paths:
+      - 'netavark/**'
+
+jobs:
+  netavark:
+    uses: ./.github/workflows/build.yml
+    with:
+      github_event_name: ${{ github.event_name }}
+      app_name: netavark
+      app_version: ${{ github.event.client_payload.version }}
+    secrets:
+      token: "${{ secrets.GITHUB_TOKEN }}"

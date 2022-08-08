@@ -1,0 +1,7 @@
+Package: aardvark-dns
+Version: $APP_VERSION-1
+Section: devel
+Priority: optional
+Architecture: amd64
+Maintainer: Hosh Sadiq
+Description: Authoritative dns server for A/AAAA container records.

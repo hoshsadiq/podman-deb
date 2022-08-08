@@ -1,0 +1,19 @@
+name: Build CNI Plugins
+
+on:
+  repository_dispatch:
+    types: [build-cni-plugins]
+
+  push:
+    paths:
+      - 'cni-plugins/**'
+
+jobs:
+  cni-plugins:
+    uses: ./.github/workflows/build.yml
+    with:
+      github_event_name: ${{ github.event_name }}
+      app_name: cni-plugins
+      app_version: ${{ github.event.client_payload.version }}
+    secrets:
+      token: "${{ secrets.GITHUB_TOKEN }}"

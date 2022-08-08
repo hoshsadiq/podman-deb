@@ -1,0 +1,9 @@
+Package: netavark
+Version: $APP_VERSION-1
+Section: devel
+Priority: optional
+Architecture: amd64
+Provides: container-network-stack (= 2.0)
+Recommends: aardvark-dns
+Maintainer: Ben Ridley benridley20@gmail.com
+Description: A Rust based network stack for containers.

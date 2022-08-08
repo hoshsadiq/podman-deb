@@ -1,0 +1,9 @@
+Package: cni-plugins
+Version: $APP_VERSION-1
+Section: devel
+Priority: optional
+Architecture: amd64
+Provides: container-network-stack (= 1.0)
+Maintainer: Hosh Sadiq
+Description: Some CNI network plugins, maintained by the containernetworking team.
+  For more information, see the CNI website.

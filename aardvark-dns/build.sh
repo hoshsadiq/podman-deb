@@ -3,6 +3,7 @@
 set -eux
 
 . /etc/os-release
+. "$HOME/.cargo/env"
 
 PKG_ROOT="$PWD/aardvark-dns_${APP_VERSION}-1_${ID}_${VERSION_ID}"
 mkdir -p "$PKG_ROOT/usr/local/libexec/podman"

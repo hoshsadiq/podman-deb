@@ -11,6 +11,12 @@ mkdir -p "${PKG_ROOT}/usr/local/libexec/cni"
 git clone --branch="v${APP_VERSION}" https://github.com/containernetworking/plugins.git
 cd plugins
 
+GO_VERSION="$(awk '$0 ~ /^go/ && $1 == "go" && $2 ~ /[0-9]+.[0-9]+/{print $2}' go.mod)"
+curl -sL https://raw.githubusercontent.com/maxatome/install-go/v3.3/install-go.pl | perl - "$GO_VERSION" "/usr/local"
+export GOPATH=/root/go
+export GOROOT=/usr/local/go
+export PATH="$PATH:/usr/local/go/bin"
+
 ./build_linux.sh
 cp ./bin/* "${PKG_ROOT}/usr/local/libexec/cni/"
 

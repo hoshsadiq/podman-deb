@@ -12,5 +12,6 @@ wget https://github.com/hoshsadiq/podman-deb/releases/download/conmon-2.1.3/conm
 wget https://github.com/hoshsadiq/podman-deb/releases/download/cni-plugins-1.1.1/cni-plugins_1.1.1-1_ubuntu_22.04.deb
 wget https://github.com/hoshsadiq/podman-deb/releases/download/aardvark-dns-1.1.0/aardvark-dns_1.1.0-1_ubuntu_22.04.deb
 
-apt install ./*.deb
+sudo apt install ./*.deb
+sudo apt install -f
 ```

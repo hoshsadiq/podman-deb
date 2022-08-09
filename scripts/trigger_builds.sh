@@ -15,12 +15,12 @@ fi
 for app in "${repositories[@]}"; do
   version="$(./scripts/is_updated.sh "$app" "${github_repository}")"
   if [ -n "$version" ]; then
-    curl \
-      -X POST \
-      -H "Accept: application/vnd.github+json" \
-      -H "Authorization: token $GITHUB_PAT" \
-      "https://api.github.com/repos/${github_repository}/dispatches" \
-      -d '{"event_type":"build-'"$app"'","client_payload":{"version":"'"$version"'"}}' &
+    curl --fail --silent --show-error \
+      --request POST \
+      --header "Accept: application/vnd.github+json" \
+      --header "Authorization: token $GITHUB_PAT" \
+      --data '{"event_type":"build-'"$app"'","client_payload":{"version":"'"$version"'"}}' \
+      "https://api.github.com/repos/${github_repository}/dispatches"
   fi
 done
 

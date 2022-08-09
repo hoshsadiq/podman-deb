@@ -1,5 +1,5 @@
 Package: crun
-Version: $APP_VERSION-1
+Version: 100:$APP_VERSION-1
 Section: devel
 Priority: optional
 Architecture: amd64

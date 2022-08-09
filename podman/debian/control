@@ -1,16 +1,17 @@
 Package: podman
 Source: libpod
-Version: $APP_VERSION-1
+Version: 100:$APP_VERSION-1
 Architecture: amd64
 Maintainer: Hosh Sadiq
 Depends: libc6,
-  libdevmapper,
-  libgpgme,
+  libdevmapper1.02.1,
+  libgpgme11,
   crun | run (>= 1.0.0~rc92~),
   conmon,
   container-network-stack,
   libapparmor-dev
 Recommends: buildah (>= 1.21.0),
+    containernetworking-plugins (>= 1.0.0-1),
     fuse-overlayfs (>= 1.0.0~),
     netavark | slirp4netns (>= 0.4.1~),
     catatonit | tini | dumb-init,

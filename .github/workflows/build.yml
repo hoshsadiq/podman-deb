@@ -46,7 +46,6 @@ jobs:
       matrix:
         os:
           - "ubuntu_22.04"
-          - "debian_10"
           - "debian_11"
     steps:
       - name: Checkout

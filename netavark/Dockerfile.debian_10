@@ -1,0 +1,20 @@
+FROM debian:buster
+
+ARG RUST_VERSION=1.62.0
+
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update;  \
+    apt-get install -y \
+      git\
+      gettext-base\
+      make
+
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt install -y curl build-essential libssl-dev pkg-config; \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --no-modify-path --quiet -y; \
+    . $HOME/.cargo/env; \
+    cargo install mandown
+
+WORKDIR /build

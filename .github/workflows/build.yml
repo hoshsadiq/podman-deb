@@ -45,6 +45,7 @@ jobs:
     strategy:
       matrix:
         os:
+          - "ubuntu_20.04"
           - "ubuntu_22.04"
           - "debian_10"
           - "debian_11"

@@ -1,0 +1,27 @@
+FROM ubuntu:20.04
+
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update; \
+    apt-get install -y \
+        gettext-base \
+        make \
+        git \
+        gcc \
+        build-essential \
+        pkgconf \
+        libtool \
+        libsystemd-dev \
+        libprotobuf-c-dev \
+        libcap-dev \
+        libseccomp-dev \
+        libyajl-dev \
+        go-md2man \
+        autoconf \
+        python3 \
+        automake \
+        dpkg-dev; \
+    rm -rf /var/lib/apt/lists/*; \
+    mkdir /build
+
+WORKDIR /build

@@ -1,0 +1,18 @@
+FROM ubuntu:20.04
+
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update; \
+    apt-get install -y \
+        gettext-base\
+        git \
+        dpkg-dev \
+        curl \
+        build-essential  \
+        libssl-dev  \
+        pkg-config; \
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile minimal --no-modify-path --quiet -y; \
+    rm -rf /var/lib/apt/lists/*; \
+    mkdir /build
+
+WORKDIR /build

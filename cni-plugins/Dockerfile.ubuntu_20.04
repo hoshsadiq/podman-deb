@@ -1,0 +1,14 @@
+FROM ubuntu:20.04
+
+RUN set -eux; \
+    export DEBIAN_FRONTEND=noninteractive; \
+    apt-get update; \
+    apt-get install -y \
+        curl \
+        gettext-base\
+        git \
+        dpkg-dev; \
+    rm -rf /var/lib/apt/lists/*; \
+    mkdir /build
+
+WORKDIR /build

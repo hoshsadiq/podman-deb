@@ -2,6 +2,11 @@
 
 Debian packages for up-to-date Podman releases. View the [releases](https://github.com/hoshsadiq/podman-deb/releases) to download the packages.
 
+> **Warning**
+> 
+> This has been archived because I had a fundamental misunderstanding of the unstable repos provided @lsm5.
+> Please use the [Kubic unstable repo for Podman and friends](https://software.opensuse.org//download.html?project=devel:kubic:libcontainers:unstable&package=podman), combined with the [Kubic repos for criu](https://software.opensuse.org//download.html?project=devel:tools:criu&package=criu).
+
 ## Usage
 Install the .deb files found in the package registry. The easiest way:
 ```bash
